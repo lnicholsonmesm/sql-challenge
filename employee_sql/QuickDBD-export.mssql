@@ -1,0 +1,74 @@
+﻿-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
+-- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
+
+-- Modify this code to update the DB schema diagram.
+-- To reset the sample schema, replace everything with
+-- two dots ('..' - without quotes).
+
+CREATE TABLE "Department" (
+    "DepartmentNum" varchar(4)   NOT NULL,
+    "DepartmentName" varchar(30)   NOT NULL,
+    CONSTRAINT "pk_Department" PRIMARY KEY (
+        "DepartmentNum"
+     )
+);
+
+CREATE TABLE "EmployeeDeptMatch" (
+    "EmployeeNum" int   NOT NULL,
+    "DepartmentNum" varchar(4)   NOT NULL
+);
+
+-- possibly should be "employeenum"
+CREATE TABLE "ManagerDeptMatch" (
+    "EmployeeNum" int   NOT NULL,
+    "DepartmentNum" varchar(4)   NOT NULL
+);
+
+CREATE TABLE "Employee" (
+    "EmployeeNum" int   NOT NULL,
+    "TitleId" varchar(5)   NOT NULL,
+    "BirthDate" date   NOT NULL,
+    "FirstName" varchar(20)   NOT NULL,
+    "LastName" varchar(20)   NOT NULL,
+    "Sex" varchar(1)   NOT NULL,
+    "HireDate" date   NOT NULL,
+    CONSTRAINT "pk_Employee" PRIMARY KEY (
+        "EmployeeNum"
+     )
+);
+
+CREATE TABLE "Salaries" (
+    "EmployeeNum" int   NOT NULL,
+    "Salary" int   NOT NULL
+);
+
+CREATE TABLE "EmployeeTitles" (
+    "TitleId" varchar(5)   NOT NULL,
+    -- varchar(30)
+    "Title" string   NOT NULL,
+    CONSTRAINT "pk_EmployeeTitles" PRIMARY KEY (
+        "TitleId"
+     ),
+    CONSTRAINT "uc_EmployeeTitles_Title" UNIQUE (
+        "Title"
+    )
+);
+
+ALTER TABLE "EmployeeDeptMatch" ADD CONSTRAINT "fk_EmployeeDeptMatch_EmployeeNum" FOREIGN KEY("EmployeeNum")
+REFERENCES "Employee" ("EmployeeNum");
+
+ALTER TABLE "EmployeeDeptMatch" ADD CONSTRAINT "fk_EmployeeDeptMatch_DepartmentNum" FOREIGN KEY("DepartmentNum")
+REFERENCES "Department" ("DepartmentNum");
+
+ALTER TABLE "ManagerDeptMatch" ADD CONSTRAINT "fk_ManagerDeptMatch_EmployeeNum" FOREIGN KEY("EmployeeNum")
+REFERENCES "Employee" ("EmployeeNum");
+
+ALTER TABLE "ManagerDeptMatch" ADD CONSTRAINT "fk_ManagerDeptMatch_DepartmentNum" FOREIGN KEY("DepartmentNum")
+REFERENCES "Department" ("DepartmentNum");
+
+ALTER TABLE "Employee" ADD CONSTRAINT "fk_Employee_TitleId" FOREIGN KEY("TitleId")
+REFERENCES "EmployeeTitles" ("TitleId");
+
+ALTER TABLE "Salaries" ADD CONSTRAINT "fk_Salaries_EmployeeNum" FOREIGN KEY("EmployeeNum")
+REFERENCES "Employee" ("EmployeeNum");
+

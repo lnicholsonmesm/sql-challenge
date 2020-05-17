@@ -1,0 +1,80 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue233;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c93333;}
+\margl1440\margr1440\vieww11560\viewh4420\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+#{\field{\*\fldinst{HYPERLINK "https://app.quickdatabasediagrams.com/#/"}}{\fldrslt 
+\f1 \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2 \outl0\strokewidth0 \strokec2 https://app.quickdatabasediagrams.com/#/}}\
+\
+# Modify this code to update the DB schema diagram.\
+# To reset the sample schema, replace everything with\
+# two dots ('..' - without quotes).\
+\
+Department\
+-\
+DepartmentNum PK varchar(4)\
+DepartmentName varchar(30)\
+\
+EmployeeDeptMatch\
+-\
+EmployeeNum int FK - Employee.EmployeeNum\
+DepartmentNum varchar(4) FK >- Department.DepartmentNum\
+\
+ManagerDeptMatch #possibly should be "employeenum"\
+-\
+EmployeeNum int FK - Employee.EmployeeNum\
+DepartmentNum varchar(4) FK >- Department.DepartmentNum\
+\
+Employee\
+-\
+EmployeeNum PK int\
+TitleId varchar(5) FK >- EmployeeTitles.TitleId\
+BirthDate date\
+FirstName varchar(20)\
+LastName varchar(20)\
+Sex varchar(1)\
+HireDate date\
+\
+Salaries\
+-\
+EmployeeNum int FK - Employee.EmployeeNum\
+Salary int\
+\
+EmployeeTitles\
+-\
+TitleId PK varchar(5)\
+Title UNIQUE string #varchar(30)\
+\
+\
+#Order\
+#-\
+#OrderID PK int\
+#CustomerID int FK >- Customer.CustomerID\
+#TotalAmount money\
+#OrderStatusID int FK >- os.OrderStatusID\
+\
+#OrderLine as ol\
+#----\
+#OrderLineID PK int\
+#OrderID int FK >- Order.OrderID\
+#ProductID int FK >- p.ProductID\
+#Quantity int\
+\
+# Table documentation comment 1 (try the PDF/RTF export)\
+#Product as p # Table documentation comment 2\
+#------------\
+#ProductID PK int\
+# Field documentation comment 1\
+# Field documentation comment 2 \
+#Name varchar(200) UNIQUE # Field documentation comment 3\
+#Price money\
+\
+#OrderStatus as os\
+#----\
+#OrderStatusID PK int\
+#Name UNIQUE string\
+}
